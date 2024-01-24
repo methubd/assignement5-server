@@ -7,10 +7,20 @@ const createPatientValidationSchema = z.object({
       .string()
       .min(1)
       .refine((val) => val.trim().length > 0, { message: 'Name is required' }),
-    age: z.number(),
-    gender: z.enum(['male', 'female']).refine((val) => val !== undefined, {
-      message: 'Gender is required',
-    }),
+    age: z
+      .number()
+      .nullable() // Allow null values
+      .refine((val) => val !== null && val !== undefined, {
+        message: 'Age is required',
+      }),
+    gender: z
+      .string()
+      .refine((val) => val === 'male' || val === 'female', {
+        message: 'Gender is missing! Must be either "Male" or "Female".',
+      })
+      .refine((val) => val !== undefined, {
+        message: 'Gender is required',
+      }),
     contact: z
       .string()
       .min(11)

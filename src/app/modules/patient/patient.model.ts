@@ -1,6 +1,8 @@
 import { Schema, model } from 'mongoose';
 import { TPatient, TRelatives } from './paitent.interface';
 
+const GENDER_ENUM = ['male', 'female'];
+
 const relativeSchema = new Schema<TRelatives>({
   patientId: { type: Schema.Types.ObjectId, ref: 'Patient' },
   relations: { type: String },
@@ -11,7 +13,7 @@ const patientSchema = new Schema<TPatient>(
     patientId: { type: String, required: true },
     name: { type: String, required: true, trim: true, minlength: 1 },
     age: { type: Number, required: true, trim: true, minlength: 1 },
-    gender: { type: String, enum: ['male', 'female'] },
+    gender: { type: String, enum: GENDER_ENUM },
     contact: {
       type: String,
       required: true,

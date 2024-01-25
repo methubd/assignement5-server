@@ -2,7 +2,6 @@ import { z } from 'zod';
 
 const createPatientValidationSchema = z.object({
   body: z.object({
-    patientId: z.string().min(1),
     name: z
       .string()
       .min(1)

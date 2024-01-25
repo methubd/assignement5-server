@@ -8,6 +8,7 @@ export type TRelatives = {
 export type TPatient = {
   patientId: string;
   name: string;
+  user: Types.ObjectId;
   age: number;
   gender: 'male' | 'female';
   contact: string;

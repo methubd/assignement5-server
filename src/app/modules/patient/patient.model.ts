@@ -10,7 +10,8 @@ const relativeSchema = new Schema<TRelatives>({
 
 const patientSchema = new Schema<TPatient>(
   {
-    patientId: { type: String, required: true },
+    patientId: { type: String, required: true, unique: true },
+    user: { type: Schema.Types.ObjectId },
     name: { type: String, required: true, trim: true, minlength: 1 },
     age: { type: Number, required: true, trim: true, minlength: 1 },
     gender: { type: String, enum: GENDER_ENUM },
@@ -28,7 +29,6 @@ const patientSchema = new Schema<TPatient>(
       trim: true,
       unique: true,
     },
-    password: { type: String, required: true },
     relatives: [{ type: relativeSchema }],
     registeredBy: { type: Schema.Types.ObjectId, ref: 'User' },
     status: {

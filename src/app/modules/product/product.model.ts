@@ -12,6 +12,7 @@ const productSchema = new Schema<TProduct>({
   size: { type: String },
   color: { type: String },
   suspension: { type: String },
+  initialQantity: { type: Number },
 });
 
 export const ProductModel = model<TProduct>('Product', productSchema);

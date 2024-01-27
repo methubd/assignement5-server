@@ -1,10 +1,10 @@
 import { Schema, model } from 'mongoose';
 import { UserStatus } from './user.constant';
-import { TUser, UserStaticModel } from './user.interface';
+import { TUser } from './user.interface';
 import config from '../../config';
 import bcrypt from 'bcrypt';
 
-const userSchema = new Schema<TUser, UserStaticModel>(
+const userSchema = new Schema<TUser>(
   {
     customerId: {
       type: String,
@@ -69,13 +69,4 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-//removing password and handling other properties from response of user
-userSchema.post('findOne', async function (doc, next) {
-  doc._id = undefined;
-  // doc.password = undefined;
-  doc.createdAt = undefined;
-  doc.updatedAt = undefined;
-  next();
-});
-
-export const UserModel = model<TUser, UserStaticModel>('User', userSchema);
+export const UserModel = model<TUser>('User', userSchema);

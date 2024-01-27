@@ -12,6 +12,7 @@ const createProductValidationSchema = z.object({
     size: z.string(),
     color: z.string(),
     suspension: z.string(),
+    initialQuantity: z.number(),
   }),
 });
 

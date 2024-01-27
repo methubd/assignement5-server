@@ -9,4 +9,5 @@ export type TProduct = {
   size: string;
   color: string;
   suspension: string;
+  initialQantity: number;
 };

@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from 'http-status';
 import AppError from '../../errors/AppError';
-import { TPatient } from '../patient/paitent.interface';
-import { PatientModel } from '../patient/patient.model';
 import { TUser } from './user.interface';
 import { UserModel } from './user.model';
 import mongoose from 'mongoose';
-import generatePatientId from './user.utils';
+import generateCustomerId from './user.utils';
+import { TCustomer } from '../customer/customer.interface';
+import { CustomerModel } from '../customer/customer.model';
 
-const createPatientIntoDB = async (payload: TPatient) => {
+const createPatientIntoDB = async (payload: TCustomer) => {
   // creating a user from payload
   const userData: Partial<TUser> = {};
 
   //set default role
-  userData.role = 'patient';
+  userData.role = 'user';
   userData.email = payload?.email;
   userData.password = payload?.password;
 
@@ -21,8 +21,8 @@ const createPatientIntoDB = async (payload: TPatient) => {
 
   try {
     session.startTransaction();
-    // setting patientId
-    userData.patientId = await generatePatientId();
+    // setting customerId
+    userData.customerId = await generateCustomerId();
 
     // creating a new user
     const newUser = await UserModel.create([userData], { session });
@@ -33,10 +33,10 @@ const createPatientIntoDB = async (payload: TPatient) => {
     }
 
     // setting id, _id as user
-    payload.patientId = newUser[0].patientId;
+    payload.customerId = newUser[0].customerId;
     payload.user = newUser[0]._id; //ref id
 
-    const newPatient = await PatientModel.create([payload], { session });
+    const newPatient = await CustomerModel.create([payload], { session });
 
     if (!newPatient.length) {
       throw new AppError(httpStatus.BAD_REQUEST, 'Failed to create patient.');

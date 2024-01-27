@@ -1,16 +1,27 @@
 import { Router } from 'express';
-import { PatientRoutes } from '../modules/patient/patient.route';
+
 import { UserRoutes } from '../modules/user/user.route';
+import { PatientRoutes } from '../modules/customer/customer.route';
+import { AuthRoutes } from '../modules/auth/auth.router';
+import { ProductRoutes } from '../modules/product/product.route';
 
 const router = Router();
 
 const moduleRoutes = [
   {
+    path: '/auth',
+    route: AuthRoutes,
+  },
+  {
     path: '/users',
     route: UserRoutes,
   },
   {
-    path: '/patients',
+    path: '/products',
+    route: ProductRoutes,
+  },
+  {
+    path: '/customer',
     route: PatientRoutes,
   },
 ];

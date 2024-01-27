@@ -1,21 +1,18 @@
 import { Types } from 'mongoose';
 
 export type TRelatives = {
-  patientId: Types.ObjectId;
+  customerId: Types.ObjectId;
   relations: string;
 };
 
-export type TPatient = {
-  patientId: string;
+export type TCustomer = {
+  customerId: string;
   name: string;
   user: Types.ObjectId;
-  age: number;
   gender: 'male' | 'female';
   contact: string;
   email: string;
   password: string;
-  relatives?: TRelatives[]; //array with patient objectId
-  registeredBy?: Types.ObjectId | string;
   status: 'in-progress' | 'blocked';
   isDeleted: boolean;
 };

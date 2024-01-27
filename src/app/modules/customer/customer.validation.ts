@@ -1,17 +1,11 @@
 import { z } from 'zod';
 
-const createPatientValidationSchema = z.object({
+const createCustomerValidationSchema = z.object({
   body: z.object({
     name: z
       .string()
       .min(1)
       .refine((val) => val.trim().length > 0, { message: 'Name is required' }),
-    age: z
-      .number()
-      .nullable() // Allow null values
-      .refine((val) => val !== null && val !== undefined, {
-        message: 'Age is required',
-      }),
     gender: z
       .string()
       .refine((val) => val === 'male' || val === 'female', {
@@ -31,14 +25,6 @@ const createPatientValidationSchema = z.object({
     password: z
       .string()
       .min(6, { message: 'Password not less than 6 charecter.' }),
-    relatives: z
-      .array(
-        z.object({
-          patientId: z.string().min(1),
-          relations: z.string(),
-        }),
-      )
-      .optional(),
     registeredBy: z.string().optional().default('self'),
     status: z
       .enum(['in-progress', 'blocked'])
@@ -50,6 +36,6 @@ const createPatientValidationSchema = z.object({
   }),
 });
 
-export const PatientValidations = {
-  createPatientValidationSchema,
+export const CustomerValidations = {
+  createCustomerValidationSchema,
 };

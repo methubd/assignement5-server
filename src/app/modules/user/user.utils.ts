@@ -1,25 +1,25 @@
 import { UserModel } from './user.model';
 
-const findLastPatientId = async () => {
-  const lastPatient = await UserModel.findOne(
+const findLastCustomerId = async () => {
+  const lastCustomer = await UserModel.findOne(
     { isDeleted: false },
-    { patientId: 1, _id: 0 },
+    { customerId: 1, _id: 0 },
   )
     .sort({
       createdAt: -1,
     })
     .lean();
 
-  return lastPatient?.patientId
-    ? lastPatient.patientId.substring(4)
+  return lastCustomer?.customerId
+    ? lastCustomer.customerId.substring(4)
     : undefined;
 };
 
-const generatePatientId = async () => {
-  const currentId = (await findLastPatientId()) || (0).toString();
+const generateCustomerId = async () => {
+  const currentId = (await findLastCustomerId()) || (0).toString();
   let incrementId = (Number(currentId) + 1).toString().padStart(4, '0');
-  incrementId = `NSHL${incrementId}`;
+  incrementId = `BIKE${incrementId}`;
   return incrementId;
 };
 
-export default generatePatientId;
+export default generateCustomerId;

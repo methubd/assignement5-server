@@ -14,7 +14,7 @@ This repository contains the server-side codebase for Assignment Five. It's buil
 1. **Clone the repository:**
 
    ```bash
-   git clone <repository-url>
+   git clone `https://github.com/methubd/assignement5-server`
    cd assignment-five-server
 1. **Install dependencies::**
    `npm install`
